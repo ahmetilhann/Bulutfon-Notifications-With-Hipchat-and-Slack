@@ -16,8 +16,21 @@ class Process {
         $this->chat = $chat;
     }
 
-    public function notification($message){
+    public function sendNotification($message){
         $this->chat->sendMessage($message);
+    }
+
+    public function sendCaller($number){
+        $this->chat->sendMessage($number.' Ariyor');
+    }
+
+    public function sendCalee($number){
+        $this->chat->sendMessage($number.' Web hook santral numarasini tetikledi');
+    }
+
+    public function sendCallTime($timestamp){
+        $date = date('H:i:s', $timestamp);
+        $this->chat->sendMessage($date.' Saat');
     }
 
 }
