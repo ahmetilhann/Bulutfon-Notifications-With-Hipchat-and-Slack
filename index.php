@@ -1,7 +1,8 @@
 <?php
 
 require_once 'process.php';
-require_once 'services.php';
+require_once 'services/slack.php';
+require_once 'services/hipchat.php';
 require_once 'constants.php';
 
 
@@ -35,25 +36,3 @@ switch($call){
         break;
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

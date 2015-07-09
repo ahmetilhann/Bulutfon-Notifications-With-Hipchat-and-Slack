@@ -1,6 +1,8 @@
 <?php
 
-require_once 'services.php';
+require_once 'services/slack.php';
+require_once 'services/hipchat.php';
+
 
 interface Chat {
 
