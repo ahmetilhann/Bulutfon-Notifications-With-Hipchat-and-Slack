@@ -10,10 +10,7 @@ Uygulamaya [Slack] ve [Hipchat] için eklenilmiş olan composer paketlerinin iç
 - [Bulutfon] hesabınızdan uygulamalar>webhook yolu takip edilerek web hook açılır.
 - "Yeni web kancası" butonuna tıklanır, tetılenecek santral numarası seçilir.
 - Uygulamanın yüklü olduğu adres istenilen alana girilir.
-- Uygulamada index.php içerisinde arama yapıldığında gönderilmek istenen mesaj girilir.
-```sh
-$message = 'Gönderilmek istenilen mesaj';
-```
+- Uygulamada index.php içerisine arama yapıldığında gönderilmek istenen mesaj 'Process' sınıfındaki metodlar yardımıyla setlenir.
 - Tetiklenecek uygulama bilgileri constants.php klasöründe istenilen yerlere girilir.
 ```sh
 #Hipchat information
