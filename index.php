@@ -1,34 +1,34 @@
 <?php
 
 require_once 'process.php';
-require_once 'slack.php';
-require_once 'hipchat.php';
+require_once 'services.php';
 require_once 'constants.php';
 
 
 
-$message = 'Web hook ile gonderilecek mesaj';
-
 $h = new Hipchat($token, $room, $from);
 $s = new Slack($weebhook_url, $channel);
 
-$p = new Process($s);
 
-
-$call = isset($_POST['direction']) ? $_POST['direction'] : false;
+$call = isset($_POST['event_type']) ? $_POST['event_type'] : false;
+$caller = isset($_POST['caller']) ? $_POST['caller'] : false;
+$callee = isset($_POST['callee']) ? $_POST['callee'] : false;
+$direction = isset($_POST['direction']) ? $_POST['direction'] : false;
 
 switch($call){
-    case 'IN':
-        $caller = $_POST['caller'];
-        $callee = $_POST['callee'];
-        $timestamp = $_POST['timestamp'];
-        $p->sendNotification('Arama...');
-        $p->sendCaller($caller);
-        $p->sendCalee($callee);
-        $p->sendCallTime($timestamp);
+    case 'call_init':
+
+        $p = new Process($s, $call);
+        $p->setDirection($direction);
+        $p->setCaller($caller);
+        $p->setCalee($callee);
+
         break;
 
-    case 'OUT':
+    case 'call_hangup':
+
+        $p = new Process($s, $call);
+
         break;
     default:
         echo 'Forbitten';

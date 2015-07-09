@@ -1,7 +1,6 @@
 <?php
 
-require_once 'slack.php';
-require_once 'hipchat.php';
+require_once 'services.php';
 
 interface Chat {
 
@@ -11,26 +10,38 @@ interface Chat {
 class Process {
 
     public $chat;
+    public $message = '';
 
-    public function __construct(Chat $chat){
+    public function __construct(Chat $chat, $call){
         $this->chat = $chat;
+
+        if($call == 'call_init'){
+            $this->message = $this->message.' Arama basladi ';
+        }else {
+            $this->message = ' Arama sonlandi ';
+        }
     }
 
-    public function sendNotification($message){
-        $this->chat->sendMessage($message);
+    public function setDirection($direction){
+        if($direction == 'IN'){
+            $this->message = $this->message.' Arama turu: Gelen ';
+        } else if($direction == 'OUT'){
+            $this->message = $this->message.' Arama turu: Giden ';
+        } else {
+            $this->message = $this->message.' Arama turu: Santral ici ';
+        }
     }
 
-    public function sendCaller($number){
-        $this->chat->sendMessage($number.' Ariyor');
+    public function setCaller($number){
+        $this->message = $this->message.' Arayan numara: '.$number;
     }
 
-    public function sendCalee($number){
-        $this->chat->sendMessage($number.' Web hook santral numarasini tetikledi');
+    public function setCalee($number){
+        $this->message = $this->message.' Aranan numara: '.$number;
     }
 
-    public function sendCallTime($timestamp){
-        $date = date('H:i:s', $timestamp);
-        $this->chat->sendMessage($date.' Saat');
+    public function __destruct(){
+        $this->chat->sendMessage($this->message);
     }
 
 }
